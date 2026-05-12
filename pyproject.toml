@@ -1,0 +1,14 @@
+[project]
+name = "basic-physics-lab"
+version = "0.1.0"
+description = "Analysis scripts for basic physics lab experiments."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "scipy",
+]
+
+[tool.uv]
+package = false

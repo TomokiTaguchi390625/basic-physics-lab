@@ -12,41 +12,40 @@
 
 ## 必要なもの
 
-- Python 3
-- NumPy
-- SciPy
-- Matplotlib
+- uv
+- Python 3.13
 
-必要なライブラリが入っていない場合は、次のようにインストールします。
+Python パッケージは `pyproject.toml` と `uv.lock` で管理します。
+ローカルの仮想環境はリポジトリ直下の `.venv/` に作成されます。
+
+## 環境構築
+
+初回はリポジトリ直下で次のコマンドを実行します。
 
 ```bash
-python3 -m pip install numpy scipy matplotlib
+uv sync
 ```
+
+これで NumPy, SciPy, Matplotlib が `.venv/` にインストールされます。
 
 ## 実行方法
 
 実験3の解析スクリプトは次のコマンドで実行できます。
 
 ```bash
-python3 03-ac-circuits/main.py
+uv run python 03-ac-circuits/main.py
 ```
 
 実験4の減衰振動フィッティングは次のコマンドで実行できます。
 
 ```bash
-python3 04-forced-and-damped-oscillations/fit_damped_decay_semilog.py
+uv run python 04-forced-and-damped-oscillations/fit_damped_decay_semilog.py
 ```
 
 実験4の強制振動に対するモンテカルロ不確かさ評価は次のコマンドで実行できます。
 
 ```bash
-python3 04-forced-and-damped-oscillations/monte_carlo_forced_oscillation.py
-```
-
-ローカルの `python3` にNumPyが入っていない場合は、`uv` を使って次のように実行できます。
-
-```bash
-uv run --with numpy python 04-forced-and-damped-oscillations/monte_carlo_forced_oscillation.py
+uv run python 04-forced-and-damped-oscillations/monte_carlo_forced_oscillation.py
 ```
 
 ## 実験3で計算している値
