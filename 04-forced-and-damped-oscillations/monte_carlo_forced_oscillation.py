@@ -27,6 +27,55 @@ PHASE_HALF_WIDTH_DEG = 1.0
 
 PHASE_RESONANCE_DEG = 90.0
 
+# 実行結果メモ
+#
+# 実行コマンド:
+#   uv run --with numpy python 04-forced-and-damped-oscillations/monte_carlo_forced_oscillation.py
+#
+# モンテカルロ設定:
+#   試行回数: 200000
+#   乱数シード: 20260512
+#   周波数の読み取り不確かさ: 一様分布 +/- 0.005 Hz
+#   振幅の読み取り不確かさ: 一様分布 +/- 0.02 V
+#   位相の読み取り不確かさ: 一様分布 +/- 1.0 deg
+#
+# 線形補間からの名目値:
+#   peak frequency           = 440.22000 Hz
+#   quadratic peak frequency = 440.21580 Hz
+#   peak amplitude           = 3.68000 V
+#   half-power amplitude     = 2.60215 V
+#   f_minus                  = 440.02532 Hz
+#   f_plus                   = 440.40789 Hz
+#   bandwidth                = 0.38257 Hz
+#   gamma_B                  = 1.20186 s^-1
+#   Q                        = 1150.70
+#   half-width center        = 440.21661 Hz
+#   phase 90 deg frequency   = 440.24150 Hz
+#   phase at f_minus         = 143.41 deg
+#   phase at f_plus          = 49.78 deg
+#
+# モンテカルロ結果:
+#   f_minus                  = 440.02533 +/- 0.00270 Hz
+#                              95% CI: 440.02008 to 440.03058 Hz
+#   f_plus                   = 440.40786 +/- 0.00282 Hz
+#                              95% CI: 440.40226 to 440.41303 Hz
+#   bandwidth                = 0.38253 +/- 0.00425 Hz
+#                              95% CI: 0.37412 to 0.39064 Hz
+#   gamma_B                  = 1.20175 +/- 0.01334 s^-1
+#                              95% CI: 1.17533 to 1.22722 s^-1
+#   Q                        = 1150.94 +/- 12.79
+#                              95% CI: 1126.92 to 1176.67
+#   half-width center        = 440.21659 +/- 0.00176 Hz
+#                              95% CI: 440.21314 to 440.21999 Hz
+#   phase 90 deg frequency   = 440.24156 +/- 0.00267 Hz
+#                              95% CI: 440.23661 to 440.24676 Hz
+#   quadratic peak frequency = 440.21577 +/- 0.00213 Hz
+#                              95% CI: 440.21162 to 440.21988 Hz
+#   phase at f_minus         = 143.41 +/- 0.46 deg
+#                              95% CI: 142.53 to 144.29 deg
+#   phase at f_plus          = 49.78 +/- 0.51 deg
+#                              95% CI: 48.86 to 50.76 deg
+
 
 FREQ_HZ = np.array(
     [
