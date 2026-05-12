@@ -87,6 +87,16 @@ f_- = 440.03\,\mathrm{Hz}
 \Delta f_r = 0.41\,\mathrm{Hz}
 \]
 
+> ここも正しくは、
+> \[
+> \Delta f_r = 0.38\,\mathrm{Hz}
+> \]
+
 \[
-\gamma = 0.41\,\mathrm{Hz}\times \pi = 1.288052
+\gamma = 0.41\,\mathrm{Hz}\times \pi = 1.288
 \]
+
+> 正しくは、
+> \[
+> \gamma = 0.38\,\mathrm{Hz}\times \pi = 1.202
+> \]
