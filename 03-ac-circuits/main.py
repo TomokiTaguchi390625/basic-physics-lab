@@ -2,10 +2,29 @@ import numpy as np
 from scipy.optimize import curve_fit
 
 # 測定データ
-f = np.array([10, 25, 35, 42, 46, 48, 50, 52, 54, 58, 65, 75, 90, 110, 150], dtype=float) # kHz
-y = np.array([0.06097, 0.19512, 0.37073, 0.58536, 0.73170,
-              0.85, 0.85, 0.8625, 0.80, 0.65, 0.4875,
-              0.34, 0.24, 0.17, 0.1025], dtype=float)
+f = np.array(
+    [10, 25, 35, 42, 46, 48, 50, 52, 54, 58, 65, 75, 90, 110, 150], dtype=float
+)  # kHz
+y = np.array(
+    [
+        0.06097,
+        0.19512,
+        0.37073,
+        0.58536,
+        0.73170,
+        0.85,
+        0.85,
+        0.8625,
+        0.80,
+        0.65,
+        0.4875,
+        0.34,
+        0.24,
+        0.17,
+        0.1025,
+    ],
+    dtype=float,
+)
 
 # 半値幅法
 peak = y.max()
@@ -25,17 +44,15 @@ print("f1 =", f1)
 print("f2 =", f2)
 print("Q_half =", Q_half)
 
+
 # 振幅特性フィッティング
 def amp_model(f, A, f0, Q):
     x = f / f0
-    return A / np.sqrt(1 + (Q * (x - 1/x))**2)
+    return A / np.sqrt(1 + (Q * (x - 1 / x)) ** 2)
+
 
 popt, pcov = curve_fit(
-    amp_model,
-    f,
-    y,
-    p0=[0.86, 50.4, 3.0],
-    bounds=([0, 40, 0.1], [2, 70, 20])
+    amp_model, f, y, p0=[0.86, 50.4, 3.0], bounds=([0, 40, 0.1], [2, 70, 20])
 )
 
 A_fit, f0_fit, Q_fit = popt
@@ -57,20 +74,35 @@ print("amp MAE =", mae)
 print("amp residuals =", residual)
 
 # 位相差フィッティング
-phase = np.array([0.25, 0.225, 0.1785, 0.125, 0.088,
-                  0.0394, 0, -0.039, -0.067, -0.114,
-                  -0.145, -0.188, -0.205, -0.22, -0.24], dtype=float)
+phase = np.array(
+    [
+        0.25,
+        0.225,
+        0.1785,
+        0.125,
+        0.088,
+        0.0394,
+        0,
+        -0.039,
+        -0.067,
+        -0.114,
+        -0.145,
+        -0.188,
+        -0.205,
+        -0.22,
+        -0.24,
+    ],
+    dtype=float,
+)
+
 
 def phase_model(f, f0, Q):
     x = f / f0
-    return -np.arctan(Q * (x - 1/x)) / (2*np.pi)
+    return -np.arctan(Q * (x - 1 / x)) / (2 * np.pi)
+
 
 popt_phase, pcov_phase = curve_fit(
-    phase_model,
-    f,
-    phase,
-    p0=[50.4, 3.0],
-    bounds=([40, 0.1], [70, 20])
+    phase_model, f, phase, p0=[50.4, 3.0], bounds=([40, 0.1], [70, 20])
 )
 
 f0_phase, Q_phase = popt_phase
@@ -83,9 +115,9 @@ L = 10e-3
 C = 0.001e-6
 R = 1050
 
-f0_theory = 1 / (2*np.pi*np.sqrt(L*C))
-Q_theory = (1/R) * np.sqrt(L/C)
-gamma_theory = R / (2*L)
+f0_theory = 1 / (2 * np.pi * np.sqrt(L * C))
+Q_theory = (1 / R) * np.sqrt(L / C)
+gamma_theory = R / (2 * L)
 
 print("f0_theory =", f0_theory / 1000, "kHz")
 print("Q_theory =", Q_theory)
@@ -96,8 +128,8 @@ T = 21e-6
 a1 = 0.90
 a2 = 0.30
 
-gamma = (1/T) * np.log(a1/a2)
-Q_decay = (2*np.pi*50.4e3) / (2*gamma)
+gamma = (1 / T) * np.log(a1 / a2)
+Q_decay = (2 * np.pi * 50.4e3) / (2 * gamma)
 
 print("gamma =", gamma)
 print("Q_decay =", Q_decay)

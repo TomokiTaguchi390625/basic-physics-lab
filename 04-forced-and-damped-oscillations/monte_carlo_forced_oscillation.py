@@ -221,11 +221,18 @@ def phase_crossing_frequency(
     for i in range(len(y) - 1):
         j = i + 1
         if y[i] * y[j] <= 0:
-            return float(x[i] + (level_deg - phase_deg[i]) * (x[j] - x[i]) / (phase_deg[j] - phase_deg[i]))
+            return float(
+                x[i]
+                + (level_deg - phase_deg[i])
+                * (x[j] - x[i])
+                / (phase_deg[j] - phase_deg[i])
+            )
     return math.nan
 
 
-def quadratic_peak_frequency(x: np.ndarray, y: np.ndarray, peak_index: int, radius: int = 2) -> float:
+def quadratic_peak_frequency(
+    x: np.ndarray, y: np.ndarray, peak_index: int, radius: int = 2
+) -> float:
     """Estimate the peak by fitting a local quadratic around the largest point."""
     start = max(0, peak_index - radius)
     stop = min(len(x), peak_index + radius + 1)
@@ -241,7 +248,9 @@ def quadratic_peak_frequency(x: np.ndarray, y: np.ndarray, peak_index: int, radi
     return float(x0 - b / (2 * a))
 
 
-def derive_values(freq_hz: np.ndarray, amp_v: np.ndarray, phase_deg: np.ndarray) -> DerivedValues:
+def derive_values(
+    freq_hz: np.ndarray, amp_v: np.ndarray, phase_deg: np.ndarray
+) -> DerivedValues:
     order = np.argsort(freq_hz)
     freq_hz = freq_hz[order]
     amp_v = amp_v[order]
@@ -309,9 +318,13 @@ def run_monte_carlo() -> dict[str, np.ndarray]:
     }
 
     for _ in range(N_TRIALS):
-        freq = FREQ_HZ + rng.uniform(-FREQ_HALF_WIDTH_HZ, FREQ_HALF_WIDTH_HZ, size=FREQ_HZ.shape)
+        freq = FREQ_HZ + rng.uniform(
+            -FREQ_HALF_WIDTH_HZ, FREQ_HALF_WIDTH_HZ, size=FREQ_HZ.shape
+        )
         amp = AMP_V + rng.uniform(-AMP_HALF_WIDTH_V, AMP_HALF_WIDTH_V, size=AMP_V.shape)
-        phase = PHASE_DEG + rng.uniform(-PHASE_HALF_WIDTH_DEG, PHASE_HALF_WIDTH_DEG, size=PHASE_DEG.shape)
+        phase = PHASE_DEG + rng.uniform(
+            -PHASE_HALF_WIDTH_DEG, PHASE_HALF_WIDTH_DEG, size=PHASE_DEG.shape
+        )
 
         values = derive_values(freq, amp, phase)
         for key in samples:
@@ -339,7 +352,9 @@ def print_value(name: str, value: float, unit: str = "", decimals: int = 6) -> N
     print(f"{name:32s}: {value:.{decimals}f}{suffix}")
 
 
-def print_summary(name: str, values: np.ndarray, unit: str = "", decimals: int = 6) -> None:
+def print_summary(
+    name: str, values: np.ndarray, unit: str = "", decimals: int = 6
+) -> None:
     stats = summarize(values)
     suffix = f" {unit}" if unit else ""
     print(
@@ -356,7 +371,9 @@ def main() -> None:
     print("Nominal values from linear interpolation")
     print("----------------------------------------")
     print_value("peak frequency", nominal.peak_frequency_hz, "Hz", 5)
-    print_value("quadratic peak frequency", nominal.quadratic_peak_frequency_hz, "Hz", 5)
+    print_value(
+        "quadratic peak frequency", nominal.quadratic_peak_frequency_hz, "Hz", 5
+    )
     print_value("peak amplitude", nominal.peak_amplitude_v, "V", 5)
     print_value("half-power amplitude", nominal.half_power_amplitude_v, "V", 5)
     print_value("f_minus", nominal.f_minus_hz, "Hz", 5)
@@ -390,7 +407,9 @@ def main() -> None:
     print_summary("Q", samples["q_factor"], "", 2)
     print_summary("half-width center", samples["half_width_center_hz"], "Hz", 5)
     print_summary("phase 90 deg frequency", samples["phase_90_frequency_hz"], "Hz", 5)
-    print_summary("quadratic peak frequency", samples["quadratic_peak_frequency_hz"], "Hz", 5)
+    print_summary(
+        "quadratic peak frequency", samples["quadratic_peak_frequency_hz"], "Hz", 5
+    )
     print_summary("phase at f_minus", samples["phase_at_f_minus_deg"], "deg", 2)
     print_summary("phase at f_plus", samples["phase_at_f_plus_deg"], "deg", 2)
 

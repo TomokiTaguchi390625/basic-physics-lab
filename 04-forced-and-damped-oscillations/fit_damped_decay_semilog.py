@@ -70,17 +70,19 @@ for d in datasets:
     plt.tight_layout()
     plt.show()
 
-    results.append({
-        "dataset": d["name"],
-        "ln_slope_per_ms": b,
-        "ln_slope_per_s": b * 1000,
-        "log10_slope_per_ms": b / np.log(10),
-        "log10_slope_per_s": b * 1000 / np.log(10),
-        "intercept_ln": a,
-        "V0": np.exp(a),
-        "R2_on_lnV": r2,
-        "time_constant_ms": -1 / b,
-    })
+    results.append(
+        {
+            "dataset": d["name"],
+            "ln_slope_per_ms": b,
+            "ln_slope_per_s": b * 1000,
+            "log10_slope_per_ms": b / np.log(10),
+            "log10_slope_per_s": b * 1000 / np.log(10),
+            "intercept_ln": a,
+            "V0": np.exp(a),
+            "R2_on_lnV": r2,
+            "time_constant_ms": -1 / b,
+        }
+    )
 
 for r in results:
     print(r)
