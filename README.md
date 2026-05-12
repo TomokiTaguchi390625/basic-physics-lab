@@ -8,7 +8,7 @@
 | ディレクトリ | 実験 | 概要 |
 | --- | --- | --- |
 | `03-ac-circuits/` | 実験3: 交流回路の特性 | RLC回路の振幅特性・位相差・Q値・減衰振動を解析するスクリプト |
-| `04-forced-and-damped-oscillations/` | 実験4: 強制振動・減衰振動 | 減衰振動の電圧測定値を片対数グラフでフィッティングし、減衰率や時定数を求めるスクリプト |
+| `04-forced-and-damped-oscillations/` | 実験4: 強制振動・減衰振動 | 強制振動の半値幅・位相差・モンテカルロ不確かさ評価と、減衰振動の片対数フィッティングを行うスクリプト |
 
 ## 必要なもの
 
@@ -37,6 +37,18 @@ python3 03-ac-circuits/main.py
 python3 04-forced-and-damped-oscillations/fit_damped_decay_semilog.py
 ```
 
+実験4の強制振動に対するモンテカルロ不確かさ評価は次のコマンドで実行できます。
+
+```bash
+python3 04-forced-and-damped-oscillations/monte_carlo_forced_oscillation.py
+```
+
+ローカルの `python3` にNumPyが入っていない場合は、`uv` を使って次のように実行できます。
+
+```bash
+uv run --with numpy python 04-forced-and-damped-oscillations/monte_carlo_forced_oscillation.py
+```
+
 ## 実験3で計算している値
 
 `03-ac-circuits/main.py` では、交流回路の測定データを使って次の値を求めています。
@@ -58,9 +70,19 @@ python3 04-forced-and-damped-oscillations/fit_damped_decay_semilog.py
 - フィッティングの決定係数
 - 減衰の時定数
 
+`04-forced-and-damped-oscillations/monte_carlo_forced_oscillation.py` では、強制振動の測定データを使って次の値を求めています。
+
+- 線形補間による半値幅 `f_-`, `f_+`, `Δf_r`
+- 半値幅から求めた減衰率 `γ_B = πΔf_r`
+- Q値
+- 位相差が90度になる周波数
+- 局所二次近似による共鳴周波数
+- 測定値の読み取り不確かさを仮定したモンテカルロ評価
+
 生成済みのグラフ画像として、初回測定の `first_measurement.png` と再測定点の `re_measured_points.png` を保存しています。
 
 強制振動の測定結果は `04-forced-and-damped-oscillations/forced_oscillation_results.md` にまとめています。
+モンテカルロ解析の代表的な実行結果は、スクリプト内のコメントにも記録しています。
 
 ## メモ
 
