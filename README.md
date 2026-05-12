@@ -8,19 +8,19 @@
 | ディレクトリ | 実験 | 概要 |
 | --- | --- | --- |
 | `03-ac-circuits/` | 実験3: 交流回路の特性 | RLC回路の振幅特性・位相差・Q値・減衰振動を解析するスクリプト |
-
-> 実験4: 強制振動・減衰振動のスクリプトは、追加したらこの一覧に追記します。
+| `04-forced-and-damped-oscillations/` | 実験4: 強制振動・減衰振動 | 減衰振動の電圧測定値を片対数グラフでフィッティングし、減衰率や時定数を求めるスクリプト |
 
 ## 必要なもの
 
 - Python 3
 - NumPy
 - SciPy
+- Matplotlib
 
 必要なライブラリが入っていない場合は、次のようにインストールします。
 
 ```bash
-python3 -m pip install numpy scipy
+python3 -m pip install numpy scipy matplotlib
 ```
 
 ## 実行方法
@@ -29,6 +29,12 @@ python3 -m pip install numpy scipy
 
 ```bash
 python3 03-ac-circuits/main.py
+```
+
+実験4の減衰振動フィッティングは次のコマンドで実行できます。
+
+```bash
+python3 04-forced-and-damped-oscillations/fit_damped_decay_semilog.py
 ```
 
 ## 実験3で計算している値
@@ -41,6 +47,18 @@ python3 03-ac-circuits/main.py
 - 位相差のフィッティングによる共振周波数とQ値
 - LCRの理論値から求めた共振周波数、Q値、減衰係数
 - 減衰振動の振幅比から求めた減衰係数とQ値
+
+## 実験4で計算している値
+
+`04-forced-and-damped-oscillations/fit_damped_decay_semilog.py` では、減衰振動の電圧測定値を使って次の値を求めています。
+
+- 片対数グラフ上での最小二乗フィッティング
+- 自然対数・常用対数での傾き
+- 初期電圧の推定値
+- フィッティングの決定係数
+- 減衰の時定数
+
+生成済みのグラフ画像として、初回測定の `first_measurement.png` と再測定点の `re_measured_points.png` を保存しています。
 
 ## メモ
 
