@@ -60,6 +60,8 @@ python3 04-forced-and-damped-oscillations/fit_damped_decay_semilog.py
 
 生成済みのグラフ画像として、初回測定の `first_measurement.png` と再測定点の `re_measured_points.png` を保存しています。
 
+強制振動の測定結果は `04-forced-and-damped-oscillations/forced_oscillation_results.md` にまとめています。
+
 ## メモ
 
 スクリプト内の測定データや回路定数は、実験レポートで使った値を直接書いています。
